@@ -1,0 +1,650 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<link href="style/salmon/resetCSS.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="style/semantic-0.19.0/packaged/css/semantic.min.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="style/textillate/assets/animate.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="style/salmon/fixedButton.css" media="all" rel="stylesheet" type="text/css" />
+	<link href="style/salmon/style.css" media="all" rel="stylesheet" type="text/css" />
+
+	<script src="style/jquery-1.11.1/jquery-1.11.1.min.js" type="text/javascript"></script>
+	<script src="style/semantic-0.19.0/packaged/javascript/semantic.min.js" type="text/javascript"></script>
+	<script src="style/textillate/assets/jquery.lettering.js" type="text/javascript"></script>
+	<script src="style/textillate/jquery.textillate.js" type="text/javascript"></script>
+	<script src="style/salmon/fixedButton.js" type="text/javascript"></script>
+	<!--<script src="style/salmon/backgroundCanvas.js" type="text/javascript"></script>-->
+</head>
+<body>
+	<!--<canvas id="pixie"></canvas>-->
+
+	<div class="button submitButton">
+		<div class="compass"></div>
+		<div class="msg">送出報名表</div>
+	</div>
+
+	<div class="boxContainer">
+		<div class="box first">
+			<span class="icon-cont"><i class="circular user icon"></i></span>
+			<h3>隊伍隊長</h3>
+			<ul class="hidden">
+				<li>暱稱</li>
+				<li>生日</li>
+				<li>電話</li>
+				<li>信箱</li>
+			</ul>
+			<a class="expand"><span class="plus">+</span><span class="minus">-</span></a>
+		</div>
+
+		<div class="box second">
+			<span class="icon-cont"><i class="circular user icon"></i></span>
+			<h3>隊伍隊員一</h3>
+			<ul class="hidden">
+				<li>暱稱</li>
+				<li>生日</li>
+				<li>電話</li>
+				<li>信箱</li>
+			</ul>
+			<a class="expand"><span class="plus">+</span><span class="minus">-</span></a>
+		</div>
+
+		<div class="box third">
+			<span class="icon-cont"><i class="circular user icon"></i></span>
+			<h3>隊伍隊員二</h3>
+			<ul class="hidden">
+				<li>暱稱</li>
+				<li>生日</li>
+				<li>電話</li>
+				<li>信箱</li>
+			</ul>
+			<a class="expand"><span class="plus">+</span><span class="minus">-</span></a>
+		</div>
+
+		<div class="box fourth">
+			<span class="icon-cont"><i class="circular user icon"></i></span>
+			<h3>隊伍隊員三</h3>
+			<ul class="hidden">
+				<li>暱稱</li>
+				<li>生日</li>
+				<li>電話</li>
+				<li>信箱</li>
+			</ul>
+			<a class="expand"><span class="plus">+</span><span class="minus">-</span></a>
+		</div>
+
+		<div class="box fifth">
+			<span class="icon-cont"><i class="circular user icon"></i></span>
+			<h3>隊伍隊員四</h3>
+			<ul class="hidden">
+				<li>暱稱</li>
+				<li>生日</li>
+				<li>電話</li>
+				<li>信箱</li>
+			</ul>
+			<a class="expand"><span class="plus">+</span><span class="minus">-</span></a>
+		</div>
+	</div>
+
+	<div class="registerContainer first">
+		<div class="registerForm">
+			<div class="ui form segment">
+				<div class="ui blue message">
+					<div class="header">隊長 資料填寫</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular user icon"></i>
+				</div>
+
+				<div class="three fields">
+					<div class="field">
+						<label>您的大名</label>
+						<input class="submit name" placeholder="Real Name" type="text">
+					</div>
+					<div class="field">
+						<label>名牌暱稱</label>
+						<input class="submit nickname" placeholder="Nickname" type="text">
+					</div>
+					<div class="field">
+						<label>性別</label>
+						<input class="submit gender" placeholder="Gender" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>身份證字號</label>
+						<input class="submit roc_id" placeholder="ROC ID" type="text">
+					</div>
+					<div class="field">
+						<label>西元出生日期</label>
+						<div class="three fields">
+							<div class="field">
+								<input class="submit born_year" placeholder="Year" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_month" placeholder="Month" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_day" placeholder="Day" type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular phone icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>聯絡電話</label>
+						<input class="submit phone" placeholder="Phone" type="text">
+					</div>
+					<div class="field">
+						<label>任職單位</label>
+						<input class="submit department" placeholder="Department" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>電子信箱</label>
+						<input class="submit email" placeholder="Email" type="text">
+					</div>
+					<div class="field">
+						<label>備用電子信箱</label>
+						<input class="submit email2" placeholder="Second Email" type="text">
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular food icon"></i>
+				</div>
+
+				<div class="field">
+					<label>膳食習慣</label>
+					<input class="submit food" placeholder="Food Habit" type="text">
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular ambulance icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>緊急聯絡人與其關係</label>
+						<input class="submit emergency" placeholder="Emergency Contact" type="text">
+					</div>
+					<div class="field">
+						<label>緊急聯絡人聯絡方式</label>
+						<input class="submit emergency_phone" placeholder="Phone" type="text">
+					</div>
+				</div>
+				<div class="field">
+					<label>患有痼疾或備註</label>
+					<textarea class="submit comment" placeholder="Chronic Illness or Helps" type="text"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="registerContainer second">
+		<div class="registerForm">
+			<div class="ui form segment">
+				<div class="ui blue message">
+					<div class="header">隊員一 資料填寫</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular user icon"></i>
+				</div>
+
+				<div class="three fields">
+					<div class="field">
+						<label>您的大名</label>
+						<input class="submit name" placeholder="Real Name" type="text">
+					</div>
+					<div class="field">
+						<label>名牌暱稱</label>
+						<input class="submit nickname" placeholder="Nickname" type="text">
+					</div>
+					<div class="field">
+						<label>性別</label>
+						<input class="submit gender" placeholder="Gender" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>身份證字號</label>
+						<input class="submit roc_id" placeholder="ROC ID" type="text">
+					</div>
+					<div class="field">
+						<label>西元出生日期</label>
+						<div class="three fields">
+							<div class="field">
+								<input class="submit born_year" placeholder="Year" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_month" placeholder="Month" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_day" placeholder="Day" type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular phone icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>聯絡電話</label>
+						<input class="submit phone" placeholder="Phone" type="text">
+					</div>
+					<div class="field">
+						<label>任職單位</label>
+						<input class="submit department" placeholder="Department" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>電子信箱</label>
+						<input class="submit email" placeholder="Email" type="text">
+					</div>
+					<div class="field">
+						<label>備用電子信箱</label>
+						<input class="submit email2" placeholder="Second Email" type="text">
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular food icon"></i>
+				</div>
+
+				<div class="field">
+					<label>膳食習慣</label>
+					<input class="submit food" placeholder="Food Habit" type="text">
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular ambulance icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>緊急聯絡人與其關係</label>
+						<input class="submit emergency" placeholder="Emergency Contact" type="text">
+					</div>
+					<div class="field">
+						<label>緊急聯絡人聯絡方式</label>
+						<input class="submit emergency_phone" placeholder="Phone" type="text">
+					</div>
+				</div>
+				<div class="field">
+					<label>患有痼疾或備註</label>
+					<textarea class="submit comment" placeholder="Chronic Illness or Helps" type="text"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="registerContainer third">
+		<div class="registerForm">
+			<div class="ui form segment">
+				<div class="ui blue message">
+					<div class="header">隊員二 資料填寫</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular user icon"></i>
+				</div>
+
+				<div class="three fields">
+					<div class="field">
+						<label>您的大名</label>
+						<input class="submit name" placeholder="Real Name" type="text">
+					</div>
+					<div class="field">
+						<label>名牌暱稱</label>
+						<input class="submit nickname" placeholder="Nickname" type="text">
+					</div>
+					<div class="field">
+						<label>性別</label>
+						<input class="submit gender" placeholder="Gender" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>身份證字號</label>
+						<input class="submit roc_id" placeholder="ROC ID" type="text">
+					</div>
+					<div class="field">
+						<label>西元出生日期</label>
+						<div class="three fields">
+							<div class="field">
+								<input class="submit born_year" placeholder="Year" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_month" placeholder="Month" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_day" placeholder="Day" type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular phone icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>聯絡電話</label>
+						<input class="submit phone" placeholder="Phone" type="text">
+					</div>
+					<div class="field">
+						<label>任職單位</label>
+						<input class="submit department" placeholder="Department" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>電子信箱</label>
+						<input class="submit email" placeholder="Email" type="text">
+					</div>
+					<div class="field">
+						<label>備用電子信箱</label>
+						<input class="submit email2" placeholder="Second Email" type="text">
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular food icon"></i>
+				</div>
+
+				<div class="field">
+					<label>膳食習慣</label>
+					<input class="submit food" placeholder="Food Habit" type="text">
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular ambulance icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>緊急聯絡人與其關係</label>
+						<input class="submit emergency" placeholder="Emergency Contact" type="text">
+					</div>
+					<div class="field">
+						<label>緊急聯絡人聯絡方式</label>
+						<input class="submit emergency_phone" placeholder="Phone" type="text">
+					</div>
+				</div>
+				<div class="field">
+					<label>患有痼疾或備註</label>
+					<textarea class="submit comment" placeholder="Chronic Illness or Helps" type="text"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="registerContainer fourth">
+		<div class="registerForm">
+			<div class="ui form segment">
+				<div class="ui blue message">
+					<div class="header">隊員三 資料填寫</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular user icon"></i>
+				</div>
+
+				<div class="three fields">
+					<div class="field">
+						<label>您的大名</label>
+						<input class="submit name" placeholder="Real Name" type="text">
+					</div>
+					<div class="field">
+						<label>名牌暱稱</label>
+						<input class="submit nickname" placeholder="Nickname" type="text">
+					</div>
+					<div class="field">
+						<label>性別</label>
+						<input class="submit gender" placeholder="Gender" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>身份證字號</label>
+						<input class="submit roc_id" placeholder="ROC ID" type="text">
+					</div>
+					<div class="field">
+						<label>西元出生日期</label>
+						<div class="three fields">
+							<div class="field">
+								<input class="submit born_year" placeholder="Year" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_month" placeholder="Month" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_day" placeholder="Day" type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular phone icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>聯絡電話</label>
+						<input class="submit phone" placeholder="Phone" type="text">
+					</div>
+					<div class="field">
+						<label>任職單位</label>
+						<input class="submit department" placeholder="Department" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>電子信箱</label>
+						<input class="submit email" placeholder="Email" type="text">
+					</div>
+					<div class="field">
+						<label>備用電子信箱</label>
+						<input class="submit email2" placeholder="Second Email" type="text">
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular food icon"></i>
+				</div>
+
+				<div class="field">
+					<label>膳食習慣</label>
+					<input class="submit food" placeholder="Food Habit" type="text">
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular ambulance icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>緊急聯絡人與其關係</label>
+						<input class="submit emergency" placeholder="Emergency Contact" type="text">
+					</div>
+					<div class="field">
+						<label>緊急聯絡人聯絡方式</label>
+						<input class="submit emergency_phone" placeholder="Phone" type="text">
+					</div>
+				</div>
+				<div class="field">
+					<label>患有痼疾或備註</label>
+					<textarea class="submit comment" placeholder="Chronic Illness or Helps" type="text"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="registerContainer fifth">
+		<div class="registerForm">
+			<div class="ui form segment">
+				<div class="ui blue message">
+					<div class="header">隊員四 資料填寫</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular user icon"></i>
+				</div>
+
+				<div class="three fields">
+					<div class="field">
+						<label>您的大名</label>
+						<input class="submit name" placeholder="Real Name" type="text">
+					</div>
+					<div class="field">
+						<label>名牌暱稱</label>
+						<input class="submit nickname" placeholder="Nickname" type="text">
+					</div>
+					<div class="field">
+						<label>性別</label>
+						<input class="submit gender" placeholder="Gender" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>身份證字號</label>
+						<input class="submit roc_id" placeholder="ROC ID" type="text">
+					</div>
+					<div class="field">
+						<label>西元出生日期</label>
+						<div class="three fields">
+							<div class="field">
+								<input class="submit born_year" placeholder="Year" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_month" placeholder="Month" type="text">
+							</div>
+							<div class="field">
+								<input class="submit born_day" placeholder="Day" type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular phone icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>聯絡電話</label>
+						<input class="submit phone" placeholder="Phone" type="text">
+					</div>
+					<div class="field">
+						<label>任職單位</label>
+						<input class="submit department" placeholder="Department" type="text">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>電子信箱</label>
+						<input class="submit email" placeholder="Email" type="text">
+					</div>
+					<div class="field">
+						<label>備用電子信箱</label>
+						<input class="submit email2" placeholder="Second Email" type="text">
+					</div>
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular food icon"></i>
+				</div>
+
+				<div class="field">
+					<label>膳食習慣</label>
+					<input class="submit food" placeholder="Food Habit" type="text">
+				</div>
+
+				<div class="ui horizontal icon divider">
+					<i class="circular ambulance icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>緊急聯絡人與其關係</label>
+						<input class="submit emergency" placeholder="Emergency Contact" type="text">
+					</div>
+					<div class="field">
+						<label>緊急聯絡人聯絡方式</label>
+						<input class="submit emergency_phone" placeholder="Phone" type="text">
+					</div>
+				</div>
+				<div class="field">
+					<label>患有痼疾或備註</label>
+					<textarea class="submit comment" placeholder="Chronic Illness or Helps" type="text"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$('.box').click(function () {
+			$(this).toggleClass('selected');
+		});
+
+		for (var i in index = { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth' })
+			addBoxClickEvent(index[i]);
+
+		function addBoxClickEvent(index) {
+			$('.box.' + index).click(function () {
+				if ($('.registerContainer.' + index).is(":visible") === false) {
+					$('.box').removeClass('selected');
+					$(this).addClass('selected');
+					$('.registerContainer').hide();
+				 	$('.registerContainer.' + index).show();
+				 	$('.registerContainer.' + index + ' .ui.message .header').textillate({ in: { effect: 'bounceIn', shuffle: true } });
+					console.log(index, "目前 open");
+				}
+				else {
+					console.log(index, "目前 close");
+					$('.registerContainer').hide();
+				}
+			});
+		}
+
+		$('.submitButton').click(function () {
+			for (var i = 0 ; i < $('.registerContainer').length ; i++) {
+
+				var name = $('.registerContainer:eq(' + i + ') .submit.name').val();
+				var nickname = $('.registerContainer:eq(' + i + ') .submit.nickname').val();
+				var gender = $('.registerContainer:eq(' + i + ') .submit.gender').val();
+				var roc_id = $('.registerContainer:eq(' + i + ') .submit.roc_id').val();
+				var born_year = $('.registerContainer:eq(' + i + ') .submit.born_year').val();
+				var born_month = $('.registerContainer:eq(' + i + ') .submit.born_month').val();
+				var born_day = $('.registerContainer:eq(' + i + ') .submit.born_day').val();
+				var phone = $('.registerContainer:eq(' + i + ') .submit.phone').val();
+				var department = $('.registerContainer:eq(' + i + ') .submit.department').val();
+				var email = $('.registerContainer:eq(' + i + ') .submit.email').val();
+				var email2 = $('.registerContainer:eq(' + i + ') .submit.email2').val();
+				var food = $('.registerContainer:eq(' + i + ') .submit.food').val();
+				var emergency = $('.registerContainer:eq(' + i + ') .submit.emergency').val();
+				var emergency_phone = $('.registerContainer:eq(' + i + ') .submit.emergency_phone').val();
+				var comment = $('.registerContainer:eq(' + i + ') .submit.comment').val();
+
+
+				console.log(name, nickname, gender, roc_id, born_year, born_month, born_day, phone, department, email, email2, emergency, emergency_phone, comment);
+			}
+		});
+
+		$(document).ready(function () {
+			$('.registerContainer').hide();
+		});
+	</script>
+</body>
