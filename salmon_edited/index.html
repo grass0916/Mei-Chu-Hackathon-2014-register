@@ -160,6 +160,22 @@
 					</div>
 				</div>
 
+
+				<div class="ui horizontal icon divider">
+					<i class="circular code icon"></i>
+				</div>
+
+				<div class="two fields">
+					<div class="field">
+						<label>是否會任一程式語言 *</label>
+						<input class="submit program" placeholder="Programming" type="text">
+					</div>
+				</div>
+				<div class="field">
+					<label>會使用的語言或擅長的技能 *</label>
+					<textarea class="submit skills" placeholder="Languages and Skills" type="text"></textarea>
+				</div>
+
 				<div class="ui horizontal icon divider">
 					<i class="circular food icon"></i>
 				</div>
@@ -264,24 +280,30 @@
 		});
 
 		$('.submitButton').click(function () {
-			$('.registerContainer.submitted').each(function (i) {
-				var name = $('.submit.name', this).val();
-				var nickname = $('.submit.nickname', this).val();
-				var gender = $('.submit.gender', this).val();
-				var roc_id = $('.submit.roc_id', this).val();
-				var born_year = $('.submit.born_year', this).val();
-				var born_month = $('.submit.born_month', this).val();
-				var born_day = $('.submit.born_day', this).val();
-				var phone = $('.submit.phone', this).val();
-				var department = $('.submit.department', this).val();
-				var email = $('.submit.email', this).val();
-				var email2 = $('.submit.email2', this).val();
-				var food = $('.submit.food', this).val();
-				var emergency = $('.submit.emergency', this).val();
-				var emergency_phone = $('.submit.emergency_phone', this).val();
-				var comment = $('.submit.comment', this).val();
-				console.log(name, nickname, gender, roc_id, born_year, born_month, born_day, phone, department, email, email2, emergency, emergency_phone, comment);
-			});
+			if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length >= 2) {
+				$('.registerContainer.submitted').each(function (i) {
+					var name = $('.submit.name', this).val();
+					var nickname = $('.submit.nickname', this).val();
+					var gender = $('.submit.gender', this).val();
+					var roc_id = $('.submit.roc_id', this).val();
+					var born_year = $('.submit.born_year', this).val();
+					var born_month = $('.submit.born_month', this).val();
+					var born_day = $('.submit.born_day', this).val();
+					var phone = $('.submit.phone', this).val();
+					var department = $('.submit.department', this).val();
+					var program = $('.submit.program', this).val();
+					var skills = $('.submit.skills', this).val();
+					var email = $('.submit.email', this).val();
+					var email2 = $('.submit.email2', this).val();
+					var food = $('.submit.food', this).val();
+					var emergency = $('.submit.emergency', this).val();
+					var emergency_phone = $('.submit.emergency_phone', this).val();
+					var comment = $('.submit.comment', this).val();
+					console.log(name, nickname, gender, roc_id, born_year, born_month, born_day, phone, department, program, skills, email, email2, emergency, emergency_phone, comment);
+				});
+			}
+			else
+				console.log("包含隊長必須要有兩名成員報名。");
 		});
 
 		$(document).ready(function () {
