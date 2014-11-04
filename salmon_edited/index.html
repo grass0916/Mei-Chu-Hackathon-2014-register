@@ -153,7 +153,7 @@
 						<input class="submit phone" placeholder="Phone" type="text">
 					</div>
 					<div class="field">
-						<label>任職單位 *</label>
+						<label>任職單位／就讀學校系所 *</label>
 						<input class="submit department" placeholder="Department" type="text">
 					</div>
 				</div>
@@ -187,7 +187,7 @@
 					</div>
 				</div>
 				<div class="field">
-					<label>會使用的語言或擅長的技能 *</label>
+					<label>會使用的語言及專長 *</label>
 					<textarea class="submit skills" placeholder="Languages and Skills" type="text"></textarea>
 				</div>
 
@@ -225,10 +225,20 @@
 					</div>
 				</div>
 				<div class="field">
-					<label>患有痼疾或備註</label>
+					<label>備註</label>
 					<textarea class="submit comment" placeholder="Chronic Illness or Helps" type="text"></textarea>
 				</div>
 			</div>
+		</div>
+	</div>
+
+	<div class="ui modal">
+		<i class="close icon"></i>
+		<div class="header">成 員 名 單 最 後 確 認</div>
+		<div class="content"></div>
+		<div class="actions">
+			<div class="ui negative button">取消，回到上一頁</div>
+			<div class="ui positive button">確定，送出報名資料</div>
 		</div>
 	</div>
 
@@ -250,7 +260,7 @@
 			var className = { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth' };
 			var titleName = { 1: '隊長 資料填寫', 2: '隊員一 資料填寫', 3: '隊員二 資料填寫', 4: '隊員三 資料填寫', 5: '隊員四 資料填寫' };
 			$(this).addClass(className[index+1]);
-			$($('.header')[index]).html(titleName[index+1]);
+			$($('.registerContainer .header')[index]).html(titleName[index+1]);
 		});
 
 		// Dropdown js.
@@ -354,7 +364,15 @@
 		});
 
 		$('.submitButton').click(function () {
+			// Hide the others windows.
+			$('.box').removeClass('selected');
+			$('.registerContainer').hide();
+			// Madal open.
+			$('.modal').modal('show');
+			// Final check.
 			if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length >= 2) {
+				$('.ui.modal .content').html("");
+				$('.ui.modal .positive').show();
 				$('.registerContainer.submitted').each(function (i) {
 					var name = $('.submit.name', this).val();
 					var nickname = $('.submit.nickname', this).val();
@@ -373,11 +391,22 @@
 					var emergency = $('.submit.emergency', this).val();
 					var emergency_phone = $('.submit.emergency_phone', this).val();
 					var comment = $('.submit.comment', this).val();
+
+					var length = $('.registerContainer.submitted').length;
+					if (i === 0)
+						$('.ui.modal .content').append("<div class='ui top attached segment'><p>隊長：" + name + "（" + email + "）</p></div>");
+					else if (i < length - 1)
+						$('.ui.modal .content').append("<div class='ui attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
+					else
+						$('.ui.modal .content').append("<div class='ui bottom attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
+
 					console.log(name, nickname, gender, roc_id, born_year, born_month, born_day, phone, department, program, skills, email, email2, emergency, emergency_phone, comment);
 				});
 			}
-			else
-				console.log("包含隊長必須要有兩名成員報名。");
+			else {
+				$('.ui.modal .content').html("團體組：包含隊長必須要有兩名成員報名。");
+				$('.ui.modal .positive').hide();
+			}
 		});
 
 		$(document).ready(function () {
@@ -403,10 +432,7 @@
 		formCheckFormat("emergency_phone", "phone");
 
 		function formCheckFormat(objectClassName, type, index, isImmediate) {
-			if (index)
-				var obj = $($('.submit.' + objectClassName)[index]);
-			else
-				var obj = $('.submit.' + objectClassName);
+			var obj = (index !== undefined) ? $($('.submit.' + objectClassName)[index]) : $('.submit.' + objectClassName);
 			obj.each(function (i) {
 				// Add the listening input event.
 				$(obj[i]).on('input', check);
@@ -429,7 +455,6 @@
 				// 	content  : content
 				// });
 				function check() {
-					console.log("FE");
 					if (type === 'name')
 						ifMatch(/^(.|\n){1,45}$/.test($(obj[i]).val()));
 					else if (type === 'email')
