@@ -17,8 +17,8 @@ body {
     border-radius: 0 50% 50% 50%;
     border: 10px solid white;
     box-shadow: 0 0 8px rgba(0,0,0,.2);
-    border-right-color: coral;
-    border-bottom-color: coral;
+    border-right-color: rgba(45, 56, 237, 0.9);
+    border-bottom-color: rgba(45, 56, 237, 0.9);
     transition: border-radius .2s;
     box-sizing: border-box;
 }
