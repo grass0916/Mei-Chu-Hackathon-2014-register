@@ -234,8 +234,11 @@
 			var index = $('.registerContainer .clearMember').index(this);
 			var boxObject = $($('.boxContainer .box')[index]);
 			var listObject = $('ul li', boxObject);
+			var inputs = $($('.registerContainer')[index]);
 			// All inputs clear in this box.
 			$('input', $('.registerContainer')[index]).val('');
+			// Remove the submit check.
+			inputs.removeClass('submitted');
 			// Update the box info.
 			$(listObject[0]).html("暱稱");
 			$(listObject[1]).html("生日");
@@ -249,8 +252,10 @@
 			var index = $('.registerContainer .submitMember').index(this);
 			var boxObject = $($('.boxContainer .box')[index]);
 			var listObject = $('ul li', boxObject);
-			// Update the box info.
 			var inputs = $($('.registerContainer')[index]);
+			// Add the submit check.
+			inputs.addClass('submitted');
+			// Update the box info.
 			$(listObject[0]).html($('input.name', inputs).val());
 			$(listObject[1]).html($('input.born_year', inputs).val() + "/" + $('input.born_month', inputs).val() + "/" + $('input.born_day', inputs).val());
 			$(listObject[2]).html($('input.phone', inputs).val());
@@ -259,22 +264,22 @@
 		});
 
 		$('.submitButton').click(function () {
-			$('.registerContainer').each(function (i) {
-				var name = $('.registerContainer:eq(' + i + ') .submit.name').val();
-				var nickname = $('.registerContainer:eq(' + i + ') .submit.nickname').val();
-				var gender = $('.registerContainer:eq(' + i + ') .submit.gender').val();
-				var roc_id = $('.registerContainer:eq(' + i + ') .submit.roc_id').val();
-				var born_year = $('.registerContainer:eq(' + i + ') .submit.born_year').val();
-				var born_month = $('.registerContainer:eq(' + i + ') .submit.born_month').val();
-				var born_day = $('.registerContainer:eq(' + i + ') .submit.born_day').val();
-				var phone = $('.registerContainer:eq(' + i + ') .submit.phone').val();
-				var department = $('.registerContainer:eq(' + i + ') .submit.department').val();
-				var email = $('.registerContainer:eq(' + i + ') .submit.email').val();
-				var email2 = $('.registerContainer:eq(' + i + ') .submit.email2').val();
-				var food = $('.registerContainer:eq(' + i + ') .submit.food').val();
-				var emergency = $('.registerContainer:eq(' + i + ') .submit.emergency').val();
-				var emergency_phone = $('.registerContainer:eq(' + i + ') .submit.emergency_phone').val();
-				var comment = $('.registerContainer:eq(' + i + ') .submit.comment').val();
+			$('.registerContainer.submitted').each(function (i) {
+				var name = $('.submit.name', this).val();
+				var nickname = $('.submit.nickname', this).val();
+				var gender = $('.submit.gender', this).val();
+				var roc_id = $('.submit.roc_id', this).val();
+				var born_year = $('.submit.born_year', this).val();
+				var born_month = $('.submit.born_month', this).val();
+				var born_day = $('.submit.born_day', this).val();
+				var phone = $('.submit.phone', this).val();
+				var department = $('.submit.department', this).val();
+				var email = $('.submit.email', this).val();
+				var email2 = $('.submit.email2', this).val();
+				var food = $('.submit.food', this).val();
+				var emergency = $('.submit.emergency', this).val();
+				var emergency_phone = $('.submit.emergency_phone', this).val();
+				var comment = $('.submit.comment', this).val();
 				console.log(name, nickname, gender, roc_id, born_year, born_month, born_day, phone, department, email, email2, emergency, emergency_phone, comment);
 			});
 		});
