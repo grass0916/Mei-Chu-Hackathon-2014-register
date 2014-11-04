@@ -4,6 +4,11 @@ div.registerContainer div.registerForm div.ui.form.segment textarea {
     resize: none;
 }
 
+/* Fixed */
+div.ui.selection.dropdown {
+    padding: 0.55em 1em;
+}
+
 /* Background */
 body {
     background:url('../bg.jpg') no-repeat center center fixed;

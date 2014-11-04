@@ -111,7 +111,15 @@
 					</div>
 					<div class="field">
 						<label>性別 *</label>
-						<input class="submit gender" placeholder="Gender" type="text">
+						<div class="ui fluid dropdown selection">
+							<input class="submit gender" type="hidden">
+							<div class="text">請選擇</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<div class="item" data-value="1">男性</div>
+								<div class="item" data-value="2">女性</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="two fields">
@@ -160,7 +168,6 @@
 					</div>
 				</div>
 
-
 				<div class="ui horizontal icon divider">
 					<i class="circular code icon"></i>
 				</div>
@@ -168,7 +175,15 @@
 				<div class="two fields">
 					<div class="field">
 						<label>是否會任一程式語言 *</label>
-						<input class="submit program" placeholder="Programming" type="text">
+						<div class="ui fluid dropdown selection">
+							<input class="submit program" type="hidden">
+							<div class="text">請選擇</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<div class="item" data-value="1">會</div>
+								<div class="item" data-value="2">不會</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="field">
@@ -183,7 +198,15 @@
 				<div class="two fields">
 					<div class="field">
 						<label>膳食習慣 *</label>
-						<input class="submit food" placeholder="Food Habit" type="text">
+						<div class="ui fluid dropdown selection">
+							<input class="submit food" type="hidden">
+							<div class="text">請選擇</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<div class="item" data-value="1">葷食</div>
+								<div class="item" data-value="2">素食</div>
+							</div>
+						</div>
 					</div>
 				</div>
 
@@ -230,6 +253,18 @@
 			$($('.header')[index]).html(titleName[index+1]);
 		});
 
+		// Dropdown js.
+		$('.ui.dropdown').dropdown();
+		$('.ui.dropdown').each(function (index) {
+			$(this).click(function () {
+				if ($('input', this).val() === '')
+					$(this).parent().addClass('error');
+			});
+		});
+		$('.ui.dropdown .menu .item').click(function () {
+			$(this).parent().parent().parent().removeClass('error');
+		});
+
 		// Add the box click event.
 		for (var i in index = { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth' })
 			addBoxClickEvent(index[i]);
@@ -257,6 +292,8 @@
 			var inputs = $($('.registerContainer')[index]);
 			// All inputs clear in this box.
 			$('input', $('.registerContainer')[index]).val('');
+			$('.ui.dropdown input', $('.registerContainer')[index]).val('');
+			$('.ui.dropdown .text', $('.registerContainer')[index]).html('請選擇');
 			// Remove the submit check.
 			inputs.removeClass('submitted');
 			$('.field.error', inputs).removeClass('error');
@@ -276,7 +313,7 @@
 			var boxObject = $($('.boxContainer .box')[index]);
 			var listObject = $('ul li', boxObject);
 			var inputs = $($('.registerContainer')[index]);
-			immediatelyCheck();
+			immediatelyCheck(index);
 			if ($('.field.error', inputs).length === 0) {
 				// Add the submit check.
 				inputs.addClass('submitted');
@@ -297,22 +334,22 @@
 			}
 
 			function immediatelyCheck() {
-				formCheckFormat("name", "name", true);
-				formCheckFormat("nickname", "name", true);
-				formCheckFormat("roc_id", "roc_id", true);
-				// --- gender
-				formCheckFormat("born_year", "year", true);
-				formCheckFormat("born_month", "month", true);
-				formCheckFormat("born_day", "day", true);
-				formCheckFormat("phone", "phone", true);
-				formCheckFormat("department", "string", true);
-				// --- program
-				formCheckFormat("skills", "string", true);
-				formCheckFormat("email", "email", true);
-				formCheckFormat("email2", "email", true);
-				// --- food
-				formCheckFormat("emergency", "name", true);
-				formCheckFormat("emergency_phone", "phone", true);
+				formCheckFormat("name", "name", index, true);
+				formCheckFormat("nickname", "name", index, true);
+				formCheckFormat("roc_id", "roc_id", index, true);
+				formCheckFormat("gender", "select2", index, true);
+				formCheckFormat("born_year", "year", index, true);
+				formCheckFormat("born_month", "month", index, true);
+				formCheckFormat("born_day", "day", index, true);
+				formCheckFormat("phone", "phone", index, true);
+				formCheckFormat("department", "string", index, true);
+				formCheckFormat("program", "select2", index, true);
+				formCheckFormat("skills", "string", index, true);
+				formCheckFormat("email", "email", index, true);
+				formCheckFormat("email2", "email", index, true);
+				formCheckFormat("food", "select2", index, true);
+				formCheckFormat("emergency", "name", index, true);
+				formCheckFormat("emergency_phone", "phone", index, true);
 			}
 		});
 
@@ -351,21 +388,25 @@
 		formCheckFormat("name", "name");
 		formCheckFormat("nickname", "name");
 		formCheckFormat("roc_id", "roc_id");
-		// --- gender
+		formCheckFormat("gender", "gender");
 		formCheckFormat("born_year", "year");
 		formCheckFormat("born_month", "month");
 		formCheckFormat("born_day", "day");
 		formCheckFormat("phone", "phone");
 		formCheckFormat("department", "string");
-		// --- program
+		formCheckFormat("program", "select2");
 		formCheckFormat("skills", "string");
 		formCheckFormat("email", "email");
 		formCheckFormat("email2", "email");
-		// --- food
+		formCheckFormat("food", "select2");
 		formCheckFormat("emergency", "name");
 		formCheckFormat("emergency_phone", "phone");
-		function formCheckFormat(objectClassName, type, isImmediate) {
-			var obj = $('.submit.' + objectClassName);
+
+		function formCheckFormat(objectClassName, type, index, isImmediate) {
+			if (index)
+				var obj = $($('.submit.' + objectClassName)[index]);
+			else
+				var obj = $('.submit.' + objectClassName);
 			obj.each(function (i) {
 				// Add the listening input event.
 				$(obj[i]).on('input', check);
@@ -376,8 +417,6 @@
 					var content = "限 1 ~ 45 中英文字";
 				else if (type === 'email')
 					var content = "信箱格式，如：sample@mail.com";
-				else if (type === 'integer')
-					var content = "請選擇需要的數值";
 				else if (type === 'roc_id')
 					var content = "請輸入中華民國身分證字號";
 				else if (type === 'phone')
@@ -390,20 +429,29 @@
 				// 	content  : content
 				// });
 				function check() {
+					console.log("FE");
 					if (type === 'name')
 						ifMatch(/^(.|\n){1,45}$/.test($(obj[i]).val()));
 					else if (type === 'email')
 						ifMatch(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/.test($(obj[i]).val()));
+					else if (type === 'roc_id')
+						ifMatch(/^[A-Za-z]([0-9]){9}$/.test($(obj[i]).val()));
+					else if (type === 'select2')
+						ifMatch(/^\d{1}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1 && $(obj[i]).val() <= 2) ? true : false));
 					else if (type === 'year')
 						ifMatch(/^\d{4}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1900 && $(obj[i]).val() <= 2010) ? true : false));
 					else if (type === 'month')
 						ifMatch(/^\d{1,2}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1 && $(obj[i]).val() <= 12) ? true : false));
 					else if (type === 'day')
 						ifMatch(/^\d{1,2}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1 && $(obj[i]).val() <= 31) ? true : false));
+					else if (type === 'phone')
+						ifMatch(/^(.|\n){6,25}$/.test($(obj[i]).val()));
+					else if (type === 'string')
+						ifMatch(/^(.|\n){1,300}$/.test($(obj[i]).val()));
 					function ifMatch(regexResult) {
 						// Checking is dropdown or not.
 						if ($($(obj[i]).parent()).hasClass('dropdown'))
-							regexResult ? $($(obj[i]).parent()).removeClass('error') : $($(obj[i]).parent()).addClass('error');
+							regexResult ? $($(obj[i]).parent().parent()).removeClass('error') : $($(obj[i]).parent().parent()).addClass('error');
 						else
 							regexResult ? $($(obj[i]).parent()).removeClass('error') : $($(obj[i]).parent()).addClass('error');
 					}
