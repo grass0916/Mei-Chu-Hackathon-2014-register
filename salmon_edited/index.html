@@ -295,7 +295,7 @@
 				$(listObject[3]).html($('input.email', inputs).val());
 				boxObject.css('background-color', 'rgba(200, 100, 100, 0.85)');
 			}
-			
+
 			function immediatelyCheck() {
 				formCheckFormat("name", "name", true);
 				formCheckFormat("nickname", "name", true);
@@ -373,7 +373,7 @@
 				// When the POST motion end, have to immediate check.
 				(isImmediate) ? check() : null;
 				if (type === 'name')
-					var content = "暱稱限 1 ~ 15 中英文字，不可輸入符號";
+					var content = "限 1 ~ 45 中英文字";
 				else if (type === 'email')
 					var content = "信箱格式，如：sample@mail.com";
 				else if (type === 'integer')
@@ -391,17 +391,15 @@
 				// });
 				function check() {
 					if (type === 'name')
-						ifMatch(/^[\u4e00-\u9fa5_a-zA-Z0-9]{1,15}$/.test($(obj[i]).val()));
+						ifMatch(/^(.|\n){1,45}$/.test($(obj[i]).val()));
 					else if (type === 'email')
 						ifMatch(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/.test($(obj[i]).val()));
-					else if (type === 'integer')
-						ifMatch(/^\d+$/.test($(obj[i]).val()));
-					else if (type === 'date')
-						ifMatch(/^\d{4}-\d{2}-\d{2}$/.test($(obj[i]).val()));
-					else if (type === 'char1000')
-						ifMatch(/^(.|\n){10,1000}$/.test($(obj[i]).val()));
-					else if (type === 'char200')
-						ifMatch(/^(.|\n){0,200}$/.test($(obj[i]).val()));
+					else if (type === 'year')
+						ifMatch(/^\d{4}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1900 && $(obj[i]).val() <= 2010) ? true : false));
+					else if (type === 'month')
+						ifMatch(/^\d{1,2}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1 && $(obj[i]).val() <= 12) ? true : false));
+					else if (type === 'day')
+						ifMatch(/^\d{1,2}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1 && $(obj[i]).val() <= 31) ? true : false));
 					function ifMatch(regexResult) {
 						// Checking is dropdown or not.
 						if ($($(obj[i]).parent()).hasClass('dropdown'))
