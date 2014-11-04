@@ -10,6 +10,10 @@ body {
     background-size: cover;
 }
 
+div.ui.buttons div.or {
+    font-size: 16px;
+}
+
 /* */
 div.registerContainer {
     width: 950px;

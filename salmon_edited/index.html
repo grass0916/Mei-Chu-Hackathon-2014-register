@@ -88,6 +88,12 @@
 					<div class="header">隊長 資料填寫</div>
 				</div>
 
+				<div class="ui buttons">
+					<div class="ui negative button">清空該成員報名資訊</div>
+					<div class="or"></div>
+					<div class="ui positive button">上傳該成員報名資訊</div>
+				</div>
+
 				<div class="ui horizontal icon divider">
 					<i class="circular user icon"></i>
 				</div>
@@ -194,8 +200,8 @@
 		$('.registerContainer').each(function (index) {
 			var className = { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth' };
 			var titleName = { 1: '隊長 資料填寫', 2: '隊員一 資料填寫', 3: '隊員二 資料填寫', 4: '隊員三 資料填寫', 5: '隊員四 資料填寫' };
-			$(this).addClass(className[index]);
-			$($('.header')[index]).html(titleName[index]);
+			$(this).addClass(className[index+1]);
+			$($('.header')[index]).html(titleName[index+1]);
 		});
 
 		// Add the box click event.
