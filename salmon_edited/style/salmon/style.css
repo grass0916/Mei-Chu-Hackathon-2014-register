@@ -6,7 +6,7 @@ div.registerContainer div.registerForm div.ui.form.segment textarea {
 
 /* Background */
 body {
-    background:url(http://imgs.ga/i/nz5321or3viv.jpg) no-repeat center center fixed;
+    background:url('../bg.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 

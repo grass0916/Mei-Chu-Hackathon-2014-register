@@ -276,22 +276,44 @@
 			var boxObject = $($('.boxContainer .box')[index]);
 			var listObject = $('ul li', boxObject);
 			var inputs = $($('.registerContainer')[index]);
-			// Add the submit check.
-			inputs.addClass('submitted');
-			if ($('.ui.positive.button', inputs).length > 0) {
-				$('input, textarea', inputs).attr('disabled', 'disabled').css('cursor', 'no-drop');
-				$('.ui.positive.button', inputs).removeClass('positive').addClass('blue').html("修改該成員報名資訊");
+			immediatelyCheck();
+			if ($('.field.error', inputs).length === 0) {
+				// Add the submit check.
+				inputs.addClass('submitted');
+				if ($('.ui.positive.button', inputs).length > 0) {
+					$('input, textarea', inputs).attr('disabled', 'disabled').css('cursor', 'no-drop');
+					$('.ui.positive.button', inputs).removeClass('positive').addClass('blue').html("修改該成員報名資訊");
+				}
+				else {
+					$('input, textarea', inputs).removeAttr('disabled').css('cursor', '');
+					$('.ui.blue.button', inputs).removeClass('blue').addClass('positive').html("增加該成員報名資訊");
+				}
+				// Update the box info.
+				$(listObject[0]).html($('input.name', inputs).val());
+				$(listObject[1]).html($('input.born_year', inputs).val() + "/" + $('input.born_month', inputs).val() + "/" + $('input.born_day', inputs).val());
+				$(listObject[2]).html($('input.phone', inputs).val());
+				$(listObject[3]).html($('input.email', inputs).val());
+				boxObject.css('background-color', 'rgba(200, 100, 100, 0.85)');
 			}
-			else {
-				$('input, textarea', inputs).removeAttr('disabled').css('cursor', '');
-				$('.ui.blue.button', inputs).removeClass('blue').addClass('positive').html("增加該成員報名資訊");
+			
+			function immediatelyCheck() {
+				formCheckFormat("name", "name", true);
+				formCheckFormat("nickname", "name", true);
+				formCheckFormat("roc_id", "roc_id", true);
+				// --- gender
+				formCheckFormat("born_year", "year", true);
+				formCheckFormat("born_month", "month", true);
+				formCheckFormat("born_day", "day", true);
+				formCheckFormat("phone", "phone", true);
+				formCheckFormat("department", "string", true);
+				// --- program
+				formCheckFormat("skills", "string", true);
+				formCheckFormat("email", "email", true);
+				formCheckFormat("email2", "email", true);
+				// --- food
+				formCheckFormat("emergency", "name", true);
+				formCheckFormat("emergency_phone", "phone", true);
 			}
-			// Update the box info.
-			$(listObject[0]).html($('input.name', inputs).val());
-			$(listObject[1]).html($('input.born_year', inputs).val() + "/" + $('input.born_month', inputs).val() + "/" + $('input.born_day', inputs).val());
-			$(listObject[2]).html($('input.phone', inputs).val());
-			$(listObject[3]).html($('input.email', inputs).val());
-			boxObject.css('background-color', 'rgba(200, 100, 100, 0.85)');
 		});
 
 		$('.submitButton').click(function () {
