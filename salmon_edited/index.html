@@ -212,6 +212,8 @@
 	<script>
 		// First to clear all inputs.
 		$('input').val("");
+		$('input').removeAttr('disabled');
+		$('input').css('cursor', '');
 
 		// Add the box click events.
 		$('.box').click(function () {
@@ -258,6 +260,8 @@
 			// Remove the submit check.
 			inputs.removeClass('submitted');
 			$('.field.error', inputs).removeClass('error');
+			$('input', inputs).removeAttr('disabled');
+			$('input', inputs).css('cursor', '');
 			// Update the box info.
 			$(listObject[0]).html("暱稱");
 			$(listObject[1]).html("生日");
@@ -274,6 +278,8 @@
 			var inputs = $($('.registerContainer')[index]);
 			// Add the submit check.
 			inputs.addClass('submitted');
+			$('input', inputs).attr('disabled', 'disabled');
+			$('input', inputs).css('cursor', 'no-drop');
 			// Update the box info.
 			$(listObject[0]).html($('input.name', inputs).val());
 			$(listObject[1]).html($('input.born_year', inputs).val() + "/" + $('input.born_month', inputs).val() + "/" + $('input.born_day', inputs).val());
@@ -369,7 +375,6 @@
 					else if (type === 'char200')
 						ifMatch(/^(.|\n){0,200}$/.test($(obj[i]).val()));
 					function ifMatch(regexResult) {
-						console.log(regexResult);
 						// Checking is dropdown or not.
 						if ($($(obj[i]).parent()).hasClass('dropdown'))
 							regexResult ? $($(obj[i]).parent()).removeClass('error') : $($(obj[i]).parent()).addClass('error');
