@@ -368,28 +368,13 @@
 			$('.box').removeClass('selected');
 			$('.registerContainer').hide();
 			// Final check.
-			if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length >= 2) {
+			// if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length >= 2) {
+			if (true) {
 				$('.ui.modal .content').html("");
 				$('.ui.modal .positive').show();
 				$('.registerContainer.submitted').each(function (i) {
 					var name = $('.submit.name', this).val();
-					var nickname = $('.submit.nickname', this).val();
-					var gender = $('.submit.gender', this).val();
-					var roc_id = $('.submit.roc_id', this).val();
-					var born_year = $('.submit.born_year', this).val();
-					var born_month = $('.submit.born_month', this).val();
-					var born_day = $('.submit.born_day', this).val();
-					var phone = $('.submit.phone', this).val();
-					var department = $('.submit.department', this).val();
-					var program = $('.submit.program', this).val();
-					var skills = $('.submit.skills', this).val();
 					var email = $('.submit.email', this).val();
-					var email2 = $('.submit.email2', this).val();
-					var food = $('.submit.food', this).val();
-					var emergency = $('.submit.emergency', this).val();
-					var emergency_phone = $('.submit.emergency_phone', this).val();
-					var comment = $('.submit.comment', this).val();
-
 					var length = $('.registerContainer.submitted').length;
 					if (i === 0)
 						$('.ui.modal .content').append("<div class='ui top attached segment'><p>隊長：" + name + "（" + email + "）</p></div>");
@@ -397,8 +382,6 @@
 						$('.ui.modal .content').append("<div class='ui attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
 					else
 						$('.ui.modal .content').append("<div class='ui bottom attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
-
-					console.log(name, nickname, gender, roc_id, born_year, born_month, born_day, phone, department, program, skills, email, email2, emergency, emergency_phone, comment);
 				});
 			}
 			else {
@@ -407,6 +390,40 @@
 			}
 			// Madal open.
 			$('.modal').modal('show');
+		});
+
+		$('.ui.modal .positive').click(function () {
+			// $('.registerContainer.submitted').each(function (i) {
+			$('.registerContainer').each(function (i) {
+				var name = $('.submit.name', this).val();
+				var nickname = $('.submit.nickname', this).val();
+				var gender = $('.submit.gender', this).val();
+				var roc_id = $('.submit.roc_id', this).val();
+				var born_year = $('.submit.born_year', this).val();
+				var born_month = $('.submit.born_month', this).val();
+				var born_day = $('.submit.born_day', this).val();
+				var phone = $('.submit.phone', this).val();
+				var department = $('.submit.department', this).val();
+				var program = $('.submit.program', this).val();
+				var skills = $('.submit.skills', this).val();
+				var email = $('.submit.email', this).val();
+				var email2 = $('.submit.email2', this).val();
+				var food = $('.submit.food', this).val();
+				var emergency = $('.submit.emergency', this).val();
+				var emergency_phone = $('.submit.emergency_phone', this).val();
+				var comment = $('.submit.comment', this).val();
+
+				$.ajax({
+					url: "https://docs.google.com/forms/d/1z9ewQXxhU0jH4-9bke8AK3Ka-zxt_cMsQoFQvebKfl8/formResponse",
+					data: {},
+					type: "POST",
+					dataType: "xml"
+				}).done(function () {
+					console.log("post" + i);
+				});
+				
+				console.log("Send" + i);
+			});
 		});
 
 		$(document).ready(function () {
