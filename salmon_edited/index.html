@@ -260,8 +260,8 @@
 			// Remove the submit check.
 			inputs.removeClass('submitted');
 			$('.field.error', inputs).removeClass('error');
-			$('input', inputs).removeAttr('disabled');
-			$('input', inputs).css('cursor', '');
+			$('input', inputs).removeAttr('disabled').css('cursor', '');
+			$('.ui.blue.button', inputs).removeClass('blue').addClass('positive').html("增加該成員報名資訊");
 			// Update the box info.
 			$(listObject[0]).html("暱稱");
 			$(listObject[1]).html("生日");
@@ -278,8 +278,14 @@
 			var inputs = $($('.registerContainer')[index]);
 			// Add the submit check.
 			inputs.addClass('submitted');
-			$('input', inputs).attr('disabled', 'disabled');
-			$('input', inputs).css('cursor', 'no-drop');
+			if ($('.ui.positive.button', inputs).length > 0) {
+				$('input', inputs).attr('disabled', 'disabled').css('cursor', 'no-drop');
+				$('.ui.positive.button', inputs).removeClass('positive').addClass('blue').html("修改該成員報名資訊");
+			}
+			else {
+				$('input', inputs).removeAttr('disabled').css('cursor', '');
+				$('.ui.blue.button', inputs).removeClass('blue').addClass('positive').html("增加該成員報名資訊");
+			}
 			// Update the box info.
 			$(listObject[0]).html($('input.name', inputs).val());
 			$(listObject[1]).html($('input.born_year', inputs).val() + "/" + $('input.born_month', inputs).val() + "/" + $('input.born_day', inputs).val());
