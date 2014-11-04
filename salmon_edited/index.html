@@ -367,8 +367,6 @@
 			// Hide the others windows.
 			$('.box').removeClass('selected');
 			$('.registerContainer').hide();
-			// Madal open.
-			$('.modal').modal('show');
 			// Final check.
 			if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length >= 2) {
 				$('.ui.modal .content').html("");
@@ -407,6 +405,8 @@
 				$('.ui.modal .content').html("團體組：包含隊長必須要有兩名成員報名。");
 				$('.ui.modal .positive').hide();
 			}
+			// Madal open.
+			$('.modal').modal('show');
 		});
 
 		$(document).ready(function () {
