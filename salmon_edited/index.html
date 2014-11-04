@@ -88,10 +88,12 @@
 					<div class="header">隊長 資料填寫</div>
 				</div>
 
-				<div class="ui buttons">
-					<div class="ui negative button">清空該成員報名資訊</div>
-					<div class="or"></div>
-					<div class="ui positive button">上傳該成員報名資訊</div>
+				<div class="center">
+					<div class="ui buttons">
+						<div class="ui negative button clearMember">清空該成員報名資訊</div>
+						<div class="or"></div>
+						<div class="ui positive button submitMember">增加該成員報名資訊</div>
+					</div>
 				</div>
 
 				<div class="ui horizontal icon divider">
@@ -100,25 +102,25 @@
 
 				<div class="three fields">
 					<div class="field">
-						<label>您的大名</label>
+						<label>您的大名 *</label>
 						<input class="submit name" placeholder="Real Name" type="text">
 					</div>
 					<div class="field">
-						<label>名牌暱稱</label>
+						<label>名牌暱稱 *</label>
 						<input class="submit nickname" placeholder="Nickname" type="text">
 					</div>
 					<div class="field">
-						<label>性別</label>
+						<label>性別 *</label>
 						<input class="submit gender" placeholder="Gender" type="text">
 					</div>
 				</div>
 				<div class="two fields">
 					<div class="field">
-						<label>身份證字號</label>
+						<label>身份證字號 *</label>
 						<input class="submit roc_id" placeholder="ROC ID" type="text">
 					</div>
 					<div class="field">
-						<label>西元出生日期</label>
+						<label>西元出生日期 *</label>
 						<div class="three fields">
 							<div class="field">
 								<input class="submit born_year" placeholder="Year" type="text">
@@ -139,21 +141,21 @@
 
 				<div class="two fields">
 					<div class="field">
-						<label>聯絡電話</label>
+						<label>聯絡電話 *</label>
 						<input class="submit phone" placeholder="Phone" type="text">
 					</div>
 					<div class="field">
-						<label>任職單位</label>
+						<label>任職單位 *</label>
 						<input class="submit department" placeholder="Department" type="text">
 					</div>
 				</div>
 				<div class="two fields">
 					<div class="field">
-						<label>電子信箱</label>
+						<label>電子信箱 *</label>
 						<input class="submit email" placeholder="Email" type="text">
 					</div>
 					<div class="field">
-						<label>備用電子信箱</label>
+						<label>備用電子信箱 *</label>
 						<input class="submit email2" placeholder="Second Email" type="text">
 					</div>
 				</div>
@@ -163,7 +165,7 @@
 				</div>
 
 				<div class="field">
-					<label>膳食習慣</label>
+					<label>膳食習慣 *</label>
 					<input class="submit food" placeholder="Food Habit" type="text">
 				</div>
 
@@ -173,11 +175,11 @@
 
 				<div class="two fields">
 					<div class="field">
-						<label>緊急聯絡人與其關係</label>
+						<label>緊急聯絡人與其關係 *</label>
 						<input class="submit emergency" placeholder="Emergency Contact" type="text">
 					</div>
 					<div class="field">
-						<label>緊急聯絡人聯絡方式</label>
+						<label>緊急聯絡人聯絡方式 *</label>
 						<input class="submit emergency_phone" placeholder="Phone" type="text">
 					</div>
 				</div>
@@ -190,6 +192,10 @@
 	</div>
 
 	<script>
+		// First to clear all inputs.
+		$('input').val("");
+
+		// Add the box click events.
 		$('.box').click(function () {
 			$(this).toggleClass('selected');
 		});
@@ -216,14 +222,41 @@
 					$('.registerContainer').hide();
 				 	$('.registerContainer.' + index).show();
 				 	$('.registerContainer.' + index + ' .ui.message .header').textillate({ in: { effect: 'bounceIn', shuffle: true } });
-					console.log(index, "目前 open");
 				}
 				else {
-					console.log(index, "目前 close");
 					$('.registerContainer').hide();
 				}
 			});
 		}
+
+		// Clear this member.
+		$('.clearMember').click(function () {
+			var index = $('.registerContainer .clearMember').index(this);
+			var boxObject = $($('.boxContainer .box')[index]);
+			var listObject = $('ul li', boxObject);
+			// All inputs clear in this box.
+			$('input', $('.registerContainer')[index]).val('');
+			// Update the box info.
+			$(listObject[0]).html("暱稱");
+			$(listObject[1]).html("生日");
+			$(listObject[2]).html("電話");
+			$(listObject[3]).html("信箱");
+			boxObject.css('background-color', 'rgba(0, 0, 0, 0.35)');
+		});
+
+		// Submit this member.
+		$('.submitMember').click(function () {
+			var index = $('.registerContainer .submitMember').index(this);
+			var boxObject = $($('.boxContainer .box')[index]);
+			var listObject = $('ul li', boxObject);
+			// Update the box info.
+			var inputs = $($('.registerContainer')[index]);
+			$(listObject[0]).html($('input.name', inputs).val());
+			$(listObject[1]).html($('input.born_year', inputs).val() + "/" + $('input.born_month', inputs).val() + "/" + $('input.born_day', inputs).val());
+			$(listObject[2]).html($('input.phone', inputs).val());
+			$(listObject[3]).html($('input.email', inputs).val());
+			boxObject.css('background-color', 'rgba(200, 100, 100, 0.85)');
+		});
 
 		$('.submitButton').click(function () {
 			$('.registerContainer').each(function (i) {
