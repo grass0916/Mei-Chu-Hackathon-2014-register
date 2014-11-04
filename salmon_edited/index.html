@@ -257,6 +257,7 @@
 			$('input', $('.registerContainer')[index]).val('');
 			// Remove the submit check.
 			inputs.removeClass('submitted');
+			$('.field.error', inputs).removeClass('error');
 			// Update the box info.
 			$(listObject[0]).html("暱稱");
 			$(listObject[1]).html("生日");
@@ -311,5 +312,72 @@
 		$(document).ready(function () {
 			$('.registerContainer').hide();
 		});
+
+		// Format checking.
+		formCheckFormat("name", "name");
+		formCheckFormat("nickname", "name");
+		formCheckFormat("roc_id", "roc_id");
+		// --- gender
+		formCheckFormat("born_year", "year");
+		formCheckFormat("born_month", "month");
+		formCheckFormat("born_day", "day");
+		formCheckFormat("phone", "phone");
+		formCheckFormat("department", "string");
+		// --- program
+		formCheckFormat("skills", "string");
+		formCheckFormat("email", "email");
+		formCheckFormat("email2", "email");
+		// --- food
+		formCheckFormat("emergency", "name");
+		formCheckFormat("emergency_phone", "phone");
+		function formCheckFormat(objectClassName, type, isImmediate) {
+			var obj = $('.submit.' + objectClassName);
+			obj.each(function (i) {
+				// Add the listening input event.
+				$(obj[i]).on('input', check);
+				$(obj[i]).on('focus', check);
+				// When the POST motion end, have to immediate check.
+				(isImmediate) ? check() : null;
+				if (type === 'name')
+					var content = "暱稱限 1 ~ 15 中英文字，不可輸入符號";
+				else if (type === 'email')
+					var content = "信箱格式，如：sample@mail.com";
+				else if (type === 'integer')
+					var content = "請選擇需要的數值";
+				else if (type === 'roc_id')
+					var content = "請輸入中華民國身分證字號";
+				else if (type === 'phone')
+					var content = "請輸入市內電話或手機號碼";
+				else if (type === 'string')
+					var content = "請輸入內容";
+				// $('input.' + objectClassName + ", textarea." + objectClassName).popup({
+				// 	on: 'focus',
+				// 	position : 'top center',
+				// 	content  : content
+				// });
+				function check() {
+					if (type === 'name')
+						ifMatch(/^[\u4e00-\u9fa5_a-zA-Z0-9]{1,15}$/.test($(obj[i]).val()));
+					else if (type === 'email')
+						ifMatch(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/.test($(obj[i]).val()));
+					else if (type === 'integer')
+						ifMatch(/^\d+$/.test($(obj[i]).val()));
+					else if (type === 'date')
+						ifMatch(/^\d{4}-\d{2}-\d{2}$/.test($(obj[i]).val()));
+					else if (type === 'char1000')
+						ifMatch(/^(.|\n){10,1000}$/.test($(obj[i]).val()));
+					else if (type === 'char200')
+						ifMatch(/^(.|\n){0,200}$/.test($(obj[i]).val()));
+					function ifMatch(regexResult) {
+						console.log(regexResult);
+						// Checking is dropdown or not.
+						if ($($(obj[i]).parent()).hasClass('dropdown'))
+							regexResult ? $($(obj[i]).parent()).removeClass('error') : $($(obj[i]).parent()).addClass('error');
+						else
+							regexResult ? $($(obj[i]).parent()).removeClass('error') : $($(obj[i]).parent()).addClass('error');
+					}
+				}
+			});
+		}
 	</script>
 </body>
