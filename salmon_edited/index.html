@@ -1,4 +1,18 @@
 <head>
+	
+	<!--
+
+
+		Hi! I'm Salmon.
+
+		Here is my website.
+
+		http://salmon.tw
+
+
+	-->
+
+	<title>2014 梅竹黑客松 報名頁面</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<link href="style/salmon/resetCSS.css" media="all" rel="stylesheet" type="text/css" />
@@ -251,6 +265,7 @@
 		<i class="close icon"></i>
 		<div class="header">成 員 名 單 最 後 確 認</div>
 		<div class="content">
+			<div class="info"></div>
 			<div class="ui fluid grid input">
 				<div class="six wide column">
 					<label>
@@ -435,26 +450,10 @@
 			$('.box').removeClass('selected');
 			$('.registerContainer').hide();
 			// Final check.
-
-
-
-
-
-
-
-			// if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length >= 2) {
-			if (true) {
+			if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length >= 2) {
 				$('.ui.modal.members .content .segment').remove();
 				$('.ui.modal.members .positive').show();
-
-
-
-
-
-
-
-				// $('.registerContainer.submitted').each(function (i) {
-				$('.registerContainer').each(function (i) {
+				$('.registerContainer.submitted').each(function (i) {
 					var name = $('.submit.name', this).val();
 					var email = $('.submit.email', this).val();
 					var length = $('.registerContainer.submitted').length;
@@ -467,7 +466,7 @@
 				});
 			}
 			else {
-				$('.ui.modal.members .content').html("團體組：包含隊長必須要有兩名成員報名。");
+				$('.ui.modal.members .content .info').html("<p>團體組：包含隊長至少要有兩名成員報名。</p><br />");
 				$('.ui.modal.members .positive').hide();
 			}
 			// Modal open.
@@ -504,47 +503,60 @@
 				targetArray[i] = targetName[$(this).val()];
 			})
 
-			console.log(targetArray);
-
-
-
-
-
-
-			// $('.registerContainer.submitted').each(function (i) {
-			$('.registerContainer').each(function (i) {
+			$('.registerContainer.submitted').each(function (i) {
+				var teamname = $('input#teamname').val();
 				var name = $('.submit.name', this).val();
 				var nickname = $('.submit.nickname', this).val();
-				var gender = $('.submit.gender', this).val();
+				var gender = ($('.submit.gender', this).val() === 1) ? "M" : "F";
 				var roc_id = $('.submit.roc_id', this).val();
 				var born_year = $('.submit.born_year', this).val();
 				var born_month = $('.submit.born_month', this).val();
 				var born_day = $('.submit.born_day', this).val();
 				var phone = $('.submit.phone', this).val();
 				var department = $('.submit.department', this).val();
-				var program = $('.submit.program', this).val();
+				var program = ($('.submit.program', this).val() === 1) ? "Y" : "N";
 				var skills = $('.submit.skills', this).val();
 				var email = $('.submit.email', this).val();
 				var email2 = $('.submit.email2', this).val();
-				var food = $('.submit.food', this).val();
-				var shirt = $('.submit.shirt', this).val();
+				var food = ($('.submit.food', this).val() === 1) ? "葷食" : "素食";
+				var shirtSize = { 1: "S", 2: "M", 3: "L", 4: "XL", 5: "2XL" };
+				var shirt = shirtSize[$('.submit.shirt', this).val()];
 				var emergency = $('.submit.emergency', this).val();
 				var emergency_phone = $('.submit.emergency_phone', this).val();
 				var comment = $('.submit.comment', this).val();
 
+				var send = {
+					'entry.185705533': teamname,
+					'entry.548087621': name,
+					'entry.828975203': nickname,
+					'entry.1364233802': roc_id,
+					'entry.333051337': gender,
+					'entry.721025167': born_year + "/" + born_month + "/" + born_day,
+					'entry.778395658': department,
+					'entry.1196085026': phone,
+					'entry.1914076961': email,
+					'entry.1597586927': email2,
+					'entry.1618031276': food,
+					'entry.464973344': shirt,
+					'entry.1266099988': program,
+					'entry.283718378': skills,
+					'entry.1668016550': emergency,
+					'entry.1482960376': emergency_phone,
+					'entry.748506205': comment,
+					'entry.1421223012': targetArray[0],
+					'entry.195090130': targetArray[1],
+					'entry.1793184777': targetArray[2],
+					'entry.1032271914': targetArray[3],
+					'entry.1762341563': targetArray[4]
+				};
+
+				console.log(send);
+
 				$.ajax({
 					url: "https://docs.google.com/forms/d/1z9ewQXxhU0jH4-9bke8AK3Ka-zxt_cMsQoFQvebKfl8/formResponse",
-					data: {},
+					data: send,
 					type: "POST",
-					dataType: "xml",
-					statusCode: {
-						0: function (data){
-							console.log(0, data);
-						},
-						200: function (data) {
-							console.log(200, data);
-						}
-              		}
+					dataType: "xml"
 				});
 			});
 		});
