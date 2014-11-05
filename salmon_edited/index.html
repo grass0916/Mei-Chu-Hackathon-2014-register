@@ -1,5 +1,5 @@
 <head>
-	
+
 	<!--
 
 
@@ -314,6 +314,14 @@
 		</div>
 	</div>
 
+	<div class="ui modal end">
+		<i class="close icon"></i>
+		<div class="header">感 謝 您 的 報 名</div>
+		<div class="content">
+			<div class="info">報名的確認結果將會在 24 小時內寄送至各成員信箱。</div>
+		</div>
+	</div>
+
 	<script>
 		// First to clear all inputs.
 		$('input, textarea').val("");
@@ -507,18 +515,18 @@
 				var teamname = $('input#teamname').val();
 				var name = $('.submit.name', this).val();
 				var nickname = $('.submit.nickname', this).val();
-				var gender = ($('.submit.gender', this).val() === 1) ? "M" : "F";
+				var gender = ($('.submit.gender', this).val() == "1") ? "M" : "F";
 				var roc_id = $('.submit.roc_id', this).val();
 				var born_year = $('.submit.born_year', this).val();
 				var born_month = $('.submit.born_month', this).val();
 				var born_day = $('.submit.born_day', this).val();
 				var phone = $('.submit.phone', this).val();
 				var department = $('.submit.department', this).val();
-				var program = ($('.submit.program', this).val() === 1) ? "Y" : "N";
+				var program = ($('.submit.program', this).val() == "1") ? "Y" : "N";
 				var skills = $('.submit.skills', this).val();
 				var email = $('.submit.email', this).val();
 				var email2 = $('.submit.email2', this).val();
-				var food = ($('.submit.food', this).val() === 1) ? "葷食" : "素食";
+				var food = ($('.submit.food', this).val() == "1") ? "葷食" : "素食";
 				var shirtSize = { 1: "S", 2: "M", 3: "L", 4: "XL", 5: "2XL" };
 				var shirt = shirtSize[$('.submit.shirt', this).val()];
 				var emergency = $('.submit.emergency', this).val();
@@ -559,6 +567,13 @@
 					dataType: "xml"
 				});
 			});
+
+			// End to remove.
+			$('.boxContainer').hide();
+			$('.registerContainer').hide();
+			$('.submitButton').hide();
+			// Modal open.
+			$('.modal.end').modal('show');
 		});
 
 		$(document).ready(function () {
