@@ -280,7 +280,7 @@
 		</div>
 		<div class="actions">
 			<div class="ui negative button">取消，回到上一頁</div>
-			<div class="ui positive button">下一步，選擇參賽主題</div>
+			<div class="ui positive button disabled">下一步，選擇參賽主題</div>
 		</div>
 	</div>
 
@@ -310,7 +310,7 @@
 		</div>
 		<div class="actions">
 			<div class="ui negative button">取消，回到上一頁</div>
-			<div class="ui positive button">確認，送出報名表</div>
+			<div class="ui positive button disabled">確認，送出報名表</div>
 		</div>
 	</div>
 
@@ -362,6 +362,30 @@
 		});
 		$('.ui.dropdown .menu .item').click(function () {
 			$(this).parent().parent().parent().removeClass('error');
+		});
+
+		$('.ui.modal.final .ui.dropdown').each(function (index) {
+			$(this).click(function () {
+				if ($('input', this).val() === '')
+					$(this).addClass('error');
+
+				var targetArray = new Array();
+				$('.ui.modal.final .input input').each(function (i) {
+					var targetName = { 1: '研華科技', 2: '盟創科技', 3: '微軟 Azure', 4: 'Akatsuki', 5: '行動貝果+迪英佳+太和光' };
+					targetArray[i] = targetName[$(this).val()];
+					if (targetArray[0] !== undefined && targetArray[1] !== undefined && targetArray[2] !== undefined && targetArray[3] !== undefined && targetArray[4] !== undefined) {
+						$('.ui.modal.final .positive').removeClass('disabled');
+						finalClickEvent();
+					}
+					else {
+						$('.ui.modal.final .positive').addClass('disabled');
+						$('.ui.modal.final .positive').off('click');
+					}
+				})
+			});
+		});
+		$('.ui.modal.final .ui.dropdown .menu .item').click(function () {
+			$(this).parent().parent().removeClass('error');
 		});
 
 		// Add the box click event.
@@ -479,11 +503,28 @@
 			}
 			// Modal open.
 			$('.modal.members').modal('show');
+			if ($('#teamname').val().length === 0)
+				$('.ui.modal.members .positive').off('click');
 		});
 
-		$('.ui.modal.members .positive').click(function () {
-			// Next modal open.
-			$('.modal.final').modal('show');
+		function membersClickEvent() {
+			$('.ui.modal.members .positive').click(function () {
+				// Next modal open.
+				$('.modal.final').modal('show');
+				$('.modal.members').modal('hide');
+				$('.ui.modal.final .positive').off('click');
+			});
+		}
+
+		$('#teamname').on('input', function () {
+			if ($('#teamname').val().length > 0) {
+				$('.ui.modal.members .positive').removeClass('disabled');
+				membersClickEvent();
+			}
+			else {
+				$('.ui.modal.members .positive').addClass('disabled');
+				$('.ui.modal.members .positive').off('click');
+			}
 		});
 
 		$('.ui.modal.final .input').each(function (index) {
@@ -504,77 +545,80 @@
 			});
 		});
 
-		$('.ui.modal.final .positive').click(function () {
-			var targetArray = new Array();
-			$('.ui.modal.final .input input').each(function (i) {
-				var targetName = { 1: '研華科技', 2: '盟創科技', 3: '微軟 Azure', 4: 'Akatsuki', 5: '行動貝果+迪英佳+太和光' };
-				targetArray[i] = targetName[$(this).val()];
-			})
+		function finalClickEvent() {
+			$('.ui.modal.final .positive').click(function () {
+				var targetArray = new Array();
+				$('.ui.modal.final .input input').each(function (i) {
+					var targetName = { 1: '研華科技', 2: '盟創科技', 3: '微軟 Azure', 4: 'Akatsuki', 5: '行動貝果+迪英佳+太和光' };
+					targetArray[i] = targetName[$(this).val()];
+				})
 
-			$('.registerContainer.submitted').each(function (i) {
-				var teamname = $('input#teamname').val();
-				var name = $('.submit.name', this).val();
-				var nickname = $('.submit.nickname', this).val();
-				var gender = ($('.submit.gender', this).val() == "1") ? "M" : "F";
-				var roc_id = $('.submit.roc_id', this).val();
-				var born_year = $('.submit.born_year', this).val();
-				var born_month = $('.submit.born_month', this).val();
-				var born_day = $('.submit.born_day', this).val();
-				var phone = $('.submit.phone', this).val();
-				var department = $('.submit.department', this).val();
-				var program = ($('.submit.program', this).val() == "1") ? "Y" : "N";
-				var skills = $('.submit.skills', this).val();
-				var email = $('.submit.email', this).val();
-				var email2 = $('.submit.email2', this).val();
-				var food = ($('.submit.food', this).val() == "1") ? "葷食" : "素食";
-				var shirtSize = { 1: "S", 2: "M", 3: "L", 4: "XL", 5: "2XL" };
-				var shirt = shirtSize[$('.submit.shirt', this).val()];
-				var emergency = $('.submit.emergency', this).val();
-				var emergency_phone = $('.submit.emergency_phone', this).val();
-				var comment = $('.submit.comment', this).val();
+				$('.registerContainer.submitted').each(function (i) {
+					var teamname = $('input#teamname').val();
+					var name = $('.submit.name', this).val();
+					var nickname = $('.submit.nickname', this).val();
+					var gender = ($('.submit.gender', this).val() == "1") ? "M" : "F";
+					var roc_id = $('.submit.roc_id', this).val();
+					var born_year = $('.submit.born_year', this).val();
+					var born_month = $('.submit.born_month', this).val();
+					var born_day = $('.submit.born_day', this).val();
+					var phone = $('.submit.phone', this).val();
+					var department = $('.submit.department', this).val();
+					var program = ($('.submit.program', this).val() == "1") ? "Y" : "N";
+					var skills = $('.submit.skills', this).val();
+					var email = $('.submit.email', this).val();
+					var email2 = $('.submit.email2', this).val();
+					var food = ($('.submit.food', this).val() == "1") ? "葷食" : "素食";
+					var shirtSize = { 1: "S", 2: "M", 3: "L", 4: "XL", 5: "2XL" };
+					var shirt = shirtSize[$('.submit.shirt', this).val()];
+					var emergency = $('.submit.emergency', this).val();
+					var emergency_phone = $('.submit.emergency_phone', this).val();
+					var comment = $('.submit.comment', this).val();
 
-				var send = {
-					'entry.185705533': String(teamname),
-					'entry.548087621': String(name),
-					'entry.828975203': String(nickname),
-					'entry.1364233802': String(roc_id),
-					'entry.333051337': String(gender),
-					'entry.721025167': String(born_year + "/" + born_month + "/" + born_day),
-					'entry.778395658': String(department),
-					'entry.1196085026': String(phone),
-					'entry.1914076961': String(email),
-					'entry.1597586927': String(email2),
-					'entry.1618031276': String(food),
-					'entry.464973344': String(shirt),
-					'entry.1266099988': String(program),
-					'entry.283718378': String(skills),
-					'entry.1668016550': String(emergency),
-					'entry.1482960376': String(emergency_phone),
-					'entry.748506205': String(comment),
-					'entry.1421223012': String(targetArray[0]),
-					'entry.195090130': String(targetArray[1]),
-					'entry.1793184777': String(targetArray[2]),
-					'entry.1032271914': String(targetArray[3]),
-					'entry.1762341563': String(targetArray[4])
-				};
+					var send = {
+						'entry.185705533': String(teamname),
+						'entry.548087621': String(name),
+						'entry.828975203': String(nickname),
+						'entry.1364233802': String(roc_id),
+						'entry.333051337': String(gender),
+						'entry.721025167': String(born_year + "/" + born_month + "/" + born_day),
+						'entry.778395658': String(department),
+						'entry.1196085026': String(phone),
+						'entry.1914076961': String(email),
+						'entry.1597586927': String(email2),
+						'entry.1618031276': String(food),
+						'entry.464973344': String(shirt),
+						'entry.1266099988': String(program),
+						'entry.283718378': String(skills),
+						'entry.1668016550': String(emergency),
+						'entry.1482960376': String(emergency_phone),
+						'entry.748506205': String(comment),
+						'entry.1421223012': String(targetArray[0]),
+						'entry.195090130': String(targetArray[1]),
+						'entry.1793184777': String(targetArray[2]),
+						'entry.1032271914': String(targetArray[3]),
+						'entry.1762341563': String(targetArray[4])
+					};
 
-				console.log(send);
+					console.log(send);
 
-				$.ajax({
-					url: "https://docs.google.com/forms/d/1z9ewQXxhU0jH4-9bke8AK3Ka-zxt_cMsQoFQvebKfl8/formResponse",
-					data: send,
-					type: "POST",
-					dataType: "xml"
+					$.ajax({
+						url: "https://docs.google.com/forms/d/1z9ewQXxhU0jH4-9bke8AK3Ka-zxt_cMsQoFQvebKfl8/formResponse",
+						data: send,
+						type: "POST",
+						dataType: "xml"
+					});
 				});
-			});
 
-			// End to remove.
-			$('.boxContainer').hide();
-			$('.registerContainer').hide();
-			$('.submitButton').hide();
-			// Modal open.
-			$('.modal.end').modal('show');
-		});
+				// End to remove.
+				$('.boxContainer').hide();
+				$('.registerContainer').hide();
+				$('.submitButton').hide();
+				// Modal open.
+				$('.modal.end').modal('show');
+				$('.modal.final').modal('hide');
+			});
+		}
 
 		$(document).ready(function () {
 			$('.registerContainer').hide();
