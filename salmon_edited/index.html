@@ -232,13 +232,55 @@
 		</div>
 	</div>
 
-	<div class="ui modal">
+	<div class="ui modal members">
 		<i class="close icon"></i>
 		<div class="header">成 員 名 單 最 後 確 認</div>
-		<div class="content"></div>
+		<div class="content">
+			<div class="ui fluid grid input">
+				<div class="six wide column">
+					<label>
+						隊伍名稱&nbsp;
+						<i class="users icon"></i>
+					</label>
+				</div>
+				<div class="nine wide column">
+					<input type='text'></input>
+				</div>
+			</div>
+		</div>
 		<div class="actions">
 			<div class="ui negative button">取消，回到上一頁</div>
-			<div class="ui positive button">確定，送出報名資料</div>
+			<div class="ui positive button">下一步，選擇參賽主題</div>
+		</div>
+	</div>
+
+	<div class="ui modal final">
+		<i class="close icon"></i>
+		<div class="header">選 擇 參 賽 主 題</div>
+		<div class="content">
+			<div class="ui fluid grid input targetSelector">
+				<div class="six wide column">
+					<label>第N志願</label>
+				</div>
+				<div class="nine wide column">
+					<div class="ui fluid dropdown selection">
+						<input class="submit target" type="hidden">
+						<div class="text">請選擇</div>
+						<i class="dropdown icon"></i>
+						<div class="menu">
+							<div class="item" data-value="1">研華科技</div>
+							<div class="item" data-value="2">盟創科技</div>
+							<div class="item" data-value="3">微軟 Azure</div>
+							<div class="item" data-value="4">Akatsuki</div>
+							<div class="item" data-value="5">行動貝果+迪英佳+太和光</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="actions">
+			<div class="ui negative button">取消，回到上一頁</div>
+			<div class="ui positive button">確認，送出報名表</div>
 		</div>
 	</div>
 
@@ -261,6 +303,15 @@
 			var titleName = { 1: '隊長 資料填寫', 2: '隊員一 資料填寫', 3: '隊員二 資料填寫', 4: '隊員三 資料填寫', 5: '隊員四 資料填寫' };
 			$(this).addClass(className[index+1]);
 			$($('.registerContainer .header')[index]).html(titleName[index+1]);
+		});
+		for (var i = 0 ; i < 4 ; i++)
+			$($('.targetSelector')[0]).clone().appendTo('.ui.modal.final .content');
+		$('.targetSelector').each(function (index) {
+			var className = { 1: 'first', 2: 'second', 3: 'third', 4: 'fourth', 5: 'fifth' };
+			var titleName = { 1: '第一志願', 2: '第二志願', 3: '第三志願', 4: '第四志願', 5: '第五志願' };
+			$(this).addClass(className[index+1]);
+			$('input', this).addClass(className[index+1]);
+			$('label', this).html(titleName[index+1]);
 		});
 
 		// Dropdown js.
@@ -368,31 +419,82 @@
 			$('.box').removeClass('selected');
 			$('.registerContainer').hide();
 			// Final check.
+
+
+
+
+
+
+
 			// if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length >= 2) {
 			if (true) {
-				$('.ui.modal .content').html("");
-				$('.ui.modal .positive').show();
-				$('.registerContainer.submitted').each(function (i) {
+				$('.ui.modal.members .content .segment').remove();
+				$('.ui.modal.members .positive').show();
+
+
+
+
+
+
+
+				// $('.registerContainer.submitted').each(function (i) {
+				$('.registerContainer').each(function (i) {
 					var name = $('.submit.name', this).val();
 					var email = $('.submit.email', this).val();
 					var length = $('.registerContainer.submitted').length;
 					if (i === 0)
-						$('.ui.modal .content').append("<div class='ui top attached segment'><p>隊長：" + name + "（" + email + "）</p></div>");
+						$('.ui.modal.members .content').append("<div class='ui top attached segment'><p>隊長：" + name + "（" + email + "）</p></div>");
 					else if (i < length - 1)
-						$('.ui.modal .content').append("<div class='ui attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
+						$('.ui.modal.members .content').append("<div class='ui attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
 					else
-						$('.ui.modal .content').append("<div class='ui bottom attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
+						$('.ui.modal.members .content').append("<div class='ui bottom attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
 				});
 			}
 			else {
-				$('.ui.modal .content').html("團體組：包含隊長必須要有兩名成員報名。");
-				$('.ui.modal .positive').hide();
+				$('.ui.modal.members .content').html("團體組：包含隊長必須要有兩名成員報名。");
+				$('.ui.modal.members .positive').hide();
 			}
-			// Madal open.
-			$('.modal').modal('show');
+			// Modal open.
+			$('.modal.members').modal('show');
 		});
 
-		$('.ui.modal .positive').click(function () {
+		$('.ui.modal.members .positive').click(function () {
+			// Next modal open.
+			$('.modal.final').modal('show');
+		});
+
+		$('.ui.modal.final .input').each(function (index) {
+			$('.item', this).click(function () {
+				var selected = $(this).attr('data-value');
+				$('.ui.modal.final .input').each(function (i) {
+					if (i > index) {
+						// Initail.
+						$('input', this).val("").parent().children('.text').html("請選擇");
+						// Hide the selected.
+						$('.menu', this).children().show().each(function (j) {
+							for (var k = 0 ; k < i ; k++)
+								if ($(this).attr('data-value') === $($('.ui.modal.final .input input')[k]).val()) 
+									$(this).hide();
+						});
+					}
+				});
+			});
+		});
+
+		$('.ui.modal.final .positive').click(function () {
+			var targetArray = new Array();
+			$('.ui.modal.final .input input').each(function (i) {
+				var targetName = { 1: '研華科技', 2: '盟創科技', 3: '微軟 Azure', 4: 'Akatsuki', 5: '行動貝果+迪英佳+太和光' };
+				targetArray[i] = targetName[$(this).val()];
+			})
+
+			console.log(targetArray);
+
+
+
+
+
+
 			// $('.registerContainer.submitted').each(function (i) {
 			$('.registerContainer').each(function (i) {
 				var name = $('.submit.name', this).val();
@@ -417,12 +519,16 @@
 					url: "https://docs.google.com/forms/d/1z9ewQXxhU0jH4-9bke8AK3Ka-zxt_cMsQoFQvebKfl8/formResponse",
 					data: {},
 					type: "POST",
-					dataType: "xml"
-				}).done(function () {
-					console.log("post" + i);
+					dataType: "xml",
+					statusCode: {
+						0: function (data){
+							console.log(0, data);
+						},
+						200: function (data) {
+							console.log(200, data);
+						}
+              		}
 				});
-				
-				console.log("Send" + i);
 			});
 		});
 

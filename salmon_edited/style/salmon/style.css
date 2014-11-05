@@ -9,6 +9,13 @@ div.ui.selection.dropdown {
     padding: 0.55em 1em;
 }
 
+div.ui.modal div.content div.ui.grid div.six.wide label {
+    line-height: 42px;
+    text-align: right;
+    font-size: 1.2em;
+    float: right;
+}
+
 /* Background */
 body {
     background:url('../bg.jpg') no-repeat center center fixed;
