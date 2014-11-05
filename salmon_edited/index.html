@@ -208,6 +208,21 @@
 							</div>
 						</div>
 					</div>
+					<div class="field">
+						<label>紀念 T-shirt 尺寸 *</label>
+						<div class="ui fluid dropdown selection">
+							<input class="submit shirt" type="hidden">
+							<div class="text">請選擇</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<div class="item" data-value="1">S</div>
+								<div class="item" data-value="2">M</div>
+								<div class="item" data-value="3">L</div>
+								<div class="item" data-value="4">XL</div>
+								<div class="item" data-value="5">2XL</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="ui horizontal icon divider">
@@ -244,7 +259,7 @@
 					</label>
 				</div>
 				<div class="nine wide column">
-					<input type='text'></input>
+					<input type='text' id='teamname'></input>
 				</div>
 			</div>
 		</div>
@@ -409,6 +424,7 @@
 				formCheckFormat("email", "email", index, true);
 				formCheckFormat("email2", "email", index, true);
 				formCheckFormat("food", "select2", index, true);
+				formCheckFormat("shirt", "select5", index, true);
 				formCheckFormat("emergency", "name", index, true);
 				formCheckFormat("emergency_phone", "phone", index, true);
 			}
@@ -511,6 +527,7 @@
 				var email = $('.submit.email', this).val();
 				var email2 = $('.submit.email2', this).val();
 				var food = $('.submit.food', this).val();
+				var shirt = $('.submit.shirt', this).val();
 				var emergency = $('.submit.emergency', this).val();
 				var emergency_phone = $('.submit.emergency_phone', this).val();
 				var comment = $('.submit.comment', this).val();
@@ -551,6 +568,7 @@
 		formCheckFormat("email", "email");
 		formCheckFormat("email2", "email");
 		formCheckFormat("food", "select2");
+		formCheckFormat("shirt", "select5");
 		formCheckFormat("emergency", "name");
 		formCheckFormat("emergency_phone", "phone");
 
@@ -586,6 +604,8 @@
 						ifMatch(/^[A-Za-z]([0-9]){9}$/.test($(obj[i]).val()));
 					else if (type === 'select2')
 						ifMatch(/^\d{1}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1 && $(obj[i]).val() <= 2) ? true : false));
+					else if (type === 'select5')
+						ifMatch(/^\d{1}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1 && $(obj[i]).val() <= 5) ? true : false));
 					else if (type === 'year')
 						ifMatch(/^\d{4}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1900 && $(obj[i]).val() <= 2010) ? true : false));
 					else if (type === 'month')
