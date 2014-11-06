@@ -106,7 +106,7 @@
 					<div class="ui buttons">
 						<div class="ui negative button clearMember">清空該成員報名資訊</div>
 						<div class="or"></div>
-						<div class="ui positive button submitMember">增加該成員報名資訊</div>
+						<div class="ui positive button submitMember">提交該成員報名資訊</div>
 					</div>
 				</div>
 
@@ -274,7 +274,7 @@
 					</label>
 				</div>
 				<div class="nine wide column">
-					<input type='text' id='teamname'></input>
+					<input type='text' placeholder="若報名個人組請填「個人組」" id='teamname'></input>
 				</div>
 			</div>
 		</div>
@@ -288,6 +288,7 @@
 		<i class="close icon"></i>
 		<div class="header">選 擇 參 賽 主 題</div>
 		<div class="content">
+			<div class="info"><span>當您確認報名完成時，即同意本競賽大會規範之準則。</span><br /><br /></div>
 			<div class="ui fluid grid input targetSelector">
 				<div class="six wide column">
 					<label>第N志願</label>
@@ -299,10 +300,10 @@
 						<i class="dropdown icon"></i>
 						<div class="menu">
 							<div class="item" data-value="1">研華科技</div>
-							<div class="item" data-value="2">盟創科技</div>
+							<div class="item" data-value="2">盟創科技&合勤科技</div>
 							<div class="item" data-value="3">微軟 Azure</div>
-							<div class="item" data-value="4">Akatsuki</div>
-							<div class="item" data-value="5">行動貝果+迪英佳+太和光</div>
+							<div class="item" data-value="4">行動貝果</div>
+							<div class="item" data-value="5">迪英佳科技</div>
 						</div>
 					</div>
 				</div>
@@ -318,7 +319,7 @@
 		<i class="close icon"></i>
 		<div class="header">感 謝 您 的 報 名</div>
 		<div class="content">
-			<div class="info">報名的確認結果將會在 24 小時內寄送至各成員信箱。</div>
+			<div class="info">報名的確認結果將會在 24 小時內寄送至各成員信箱，時限內若無收到通知信，請主動聯繫大會工作人員。</div>
 		</div>
 	</div>
 
@@ -371,7 +372,7 @@
 
 				var targetArray = new Array();
 				$('.ui.modal.final .input input').each(function (i) {
-					var targetName = { 1: '研華科技', 2: '盟創科技', 3: '微軟 Azure', 4: 'Akatsuki', 5: '行動貝果+迪英佳+太和光' };
+					var targetName = { 1: '研華科技', 2: '盟創科技&合勤科技', 3: '微軟 Azure', 4: '行動貝果', 5: '迪英佳科技' };
 					targetArray[i] = targetName[$(this).val()];
 					if (targetArray[0] !== undefined && targetArray[1] !== undefined && targetArray[2] !== undefined && targetArray[3] !== undefined && targetArray[4] !== undefined) {
 						$('.ui.modal.final .positive').removeClass('disabled');
@@ -497,8 +498,18 @@
 						$('.ui.modal.members .content').append("<div class='ui bottom attached segment'><p>隊員：" + name + "（" + email + "）</p></div>");
 				});
 			}
+			if ($('.registerContainer.first.submitted').length > 0 && $('.registerContainer.submitted').length == 1) {
+				$('.ui.modal.members .content .segment').remove();
+				$('.ui.modal.members .positive').show();
+				$('.registerContainer.submitted').each(function (i) {
+					var name = $('.submit.name', this).val();
+					var email = $('.submit.email', this).val();
+					var length = $('.registerContainer.submitted').length;
+					$('.ui.modal.members .content').append("<div class='ui segment'><p>個人報名：" + name + "（" + email + "）</p></div>");
+				});
+			}
 			else {
-				$('.ui.modal.members .content .info').html("<p>團體組：包含隊長至少要有兩名成員報名。</p><br />");
+				$('.ui.modal.members .content .info').html("<p>個人組：僅填寫隊長欄位即可。</p><br /><p>團體組：包含隊長至少要有兩名成員報名。</p><br />");
 				$('.ui.modal.members .positive').hide();
 			}
 			// Modal open.
@@ -549,7 +560,7 @@
 			$('.ui.modal.final .positive').click(function () {
 				var targetArray = new Array();
 				$('.ui.modal.final .input input').each(function (i) {
-					var targetName = { 1: '研華科技', 2: '盟創科技', 3: '微軟 Azure', 4: 'Akatsuki', 5: '行動貝果+迪英佳+太和光' };
+					var targetName = { 1: '研華科技', 2: '盟創科技&合勤科技', 3: '微軟 Azure', 4: '行動貝果', 5: '迪英佳科技' };
 					targetArray[i] = targetName[$(this).val()];
 				})
 
@@ -651,21 +662,6 @@
 				$(obj[i]).on('focus', check);
 				// When the POST motion end, have to immediate check.
 				(isImmediate) ? check() : null;
-				if (type === 'name')
-					var content = "限 1 ~ 45 中英文字";
-				else if (type === 'email')
-					var content = "信箱格式，如：sample@mail.com";
-				else if (type === 'roc_id')
-					var content = "請輸入中華民國身分證字號";
-				else if (type === 'phone')
-					var content = "請輸入市內電話或手機號碼";
-				else if (type === 'string')
-					var content = "請輸入內容";
-				// $('input.' + objectClassName + ", textarea." + objectClassName).popup({
-				// 	on: 'focus',
-				// 	position : 'top center',
-				// 	content  : content
-				// });
 				function check() {
 					if (type === 'name')
 						ifMatch(/^(.|\n){1,45}$/.test($(obj[i]).val()));
@@ -684,7 +680,7 @@
 					else if (type === 'day')
 						ifMatch(/^\d{1,2}$/.test($(obj[i]).val()) & (($(obj[i]).val() >= 1 && $(obj[i]).val() <= 31) ? true : false));
 					else if (type === 'phone')
-						ifMatch(/^(.|\n){6,25}$/.test($(obj[i]).val()));
+						ifMatch(/^(.|\n){3,25}$/.test($(obj[i]).val()));
 					else if (type === 'string')
 						ifMatch(/^(.|\n){1,300}$/.test($(obj[i]).val()));
 					function ifMatch(regexResult) {
